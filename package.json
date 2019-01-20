@@ -4,7 +4,7 @@
   "description": "PG Plasma full node",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha --recursive test/"
   },
   "keywords": [
     "plasma"
@@ -15,5 +15,11 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "plasma-core": "github:plasma-group/plasma-core"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "eslint-plugin-chai-friendly": "^0.4.1",
+    "mocha": "^5.2.0"
   }
 }

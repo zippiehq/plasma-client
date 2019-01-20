@@ -1,7 +1,7 @@
 const PlasmaCore = require('plasma-core')
 const RPCServerService = require('./services/rpc-server-service')
 
-class PlasmaApp {
+class PlasmaNode {
   constructor () {
     this.core = new PlasmaCore({
       contract: {
@@ -24,4 +24,4 @@ class PlasmaApp {
   }
 }
 
-module.exports = PlasmaApp
+module.exports = PlasmaNode
