@@ -14,6 +14,6 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "plasma-core": "git@github.com:plasma-group/plasma-core.git"
+    "plasma-core": "file:../plasma-core"
   }
 }
