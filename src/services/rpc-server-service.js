@@ -9,11 +9,11 @@ class RPCServerService {
     this.app = options.app
     this.port = options.port
 
-    this.app = express()
-    this.app.use(bodyParser.urlencoded({ extended: true }))
-    this.app.use(bodyParser.json())
+    this.expressApp = express()
+    this.expressApp.use(bodyParser.urlencoded({ extended: true }))
+    this.expressApp.use(bodyParser.json())
 
-    this.app.post('/', async (req, res) => {
+    this.expressApp.post('/', async (req, res) => {
       const response = await this.app.services.jsonrpc.handle(req.body)
       res.json(response)
     })
@@ -24,7 +24,7 @@ class RPCServerService {
   }
 
   async start () {
-    this.server = this.app.listen(this.port)
+    this.server = this.expressApp.listen(this.port)
     this.started = true
   }
 

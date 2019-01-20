@@ -7,7 +7,7 @@ class PlasmaNode {
       contract: {
         abi: '',
         address: '0x0'
-      },
+      }
     })
 
     this.core.registerService(RPCServerService, {
