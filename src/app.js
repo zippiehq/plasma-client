@@ -5,6 +5,9 @@ const defaultOptions = {
   port: '9898'
 }
 
+/**
+ * Class that houses the whole node.
+ */
 class PlasmaNode {
   constructor (options) {
     options = Object.assign({}, defaultOptions, options)
@@ -15,14 +18,20 @@ class PlasmaNode {
     })
   }
 
+  /**
+   * Starts the node.
+   */
   async start () {
     this.started = true
-    return this.core.startServices()
+    return this.core.start()
   }
 
+  /**
+   * Stops the node.
+   */
   async stop () {
     this.started = false
-    return this.core.stopServices()
+    return this.core.stop()
   }
 }
 
