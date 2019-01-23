@@ -1,3 +1,3 @@
-const PlasmaApp = require('./src/app')
+const PlasmaNode = require('./src/app')
 
-module.exports = PlasmaApp
+module.exports = PlasmaNode
