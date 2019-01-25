@@ -33,6 +33,10 @@ class PlasmaNode {
     this.started = false
     return this.core.stop()
   }
+
+  setContractAddress (address) {
+    this.core.services.contract.contract.options.address = address
+  }
 }
 
 module.exports = PlasmaNode
