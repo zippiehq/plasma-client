@@ -48,4 +48,10 @@ program
     console.log(`Transaction receipt: ${receipt}`)
   })
 
+program
+  .command('submitblock')
+  .action(async () => {
+    await client.operator.submitBlock()
+  })
+
 program.parse(process.argv)
