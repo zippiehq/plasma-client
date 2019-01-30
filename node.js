@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const program = require('commander')
 const PlasmaCore = require('plasma-core')
 const PlasmaNode = require('./index')
