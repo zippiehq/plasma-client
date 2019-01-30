@@ -22,7 +22,16 @@ const client = new Plasma(
 
 program.command('listaccounts').action(async () => {
   const accounts = await client.getAccounts()
-  accounts.forEach((account) => console.log(account))
+  accounts.forEach((account, i) => {
+    const maxDigits = (accounts.length - 1).toString().length
+    const accountNumber = i.toString().padStart(maxDigits, '0')
+    console.log(`(${accountNumber}) ${account}`)
+  })
+})
+
+program.command('getaccount <account>').action(async (account) => {
+  account = await parseAccount(account)
+  console.log(account)
 })
 
 program.command('getbalance <account>').action(async (account) => {
