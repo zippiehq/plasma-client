@@ -1,6 +1,6 @@
 {
   "name": "plasma-node",
-  "version": "0.0.4-beta.0",
+  "version": "0.0.4-beta.1",
   "description": "PG Plasma full node",
   "bin": {
     "plasma-node": "node.js",
@@ -32,7 +32,7 @@
     "body-parser": "^1.18.3",
     "commander": "^2.19.0",
     "express": "^4.16.4",
-    "plasma-core": "^0.0.2",
+    "plasma-core": "0.0.4-beta.1",
     "plasma-js-lib": "^0.0.3"
   },
   "devDependencies": {
