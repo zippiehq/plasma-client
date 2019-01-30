@@ -3,10 +3,6 @@
 const Plasma = require('plasma-js-lib')
 const program = require('commander')
 
-const client = new Plasma(
-  new Plasma.providers.HttpProvider('http://localhost:9898')
-)
-
 const parseAccount = async (account) => {
   if (!isNaN(account)) {
     const accounts = await client.getAccounts()
@@ -15,7 +11,14 @@ const parseAccount = async (account) => {
   return account
 }
 
-program.version('0.0.1')
+program
+  .version('0.0.1')
+  .option('-h, --hostname <hostname>', 'Host the node is running on. Defaults to 127.0.0.1.', '127.0.0.1')
+  .option('-p, --port <port>', 'Port the node is running on. Defaults to 9898.', '9898')
+
+const client = new Plasma(
+  new Plasma.providers.HttpProvider(`http://${program.hostname}:${program.port}`)
+)
 
 program.command('listaccounts').action(async () => {
   const accounts = await client.getAccounts()

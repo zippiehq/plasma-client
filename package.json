@@ -1,7 +1,11 @@
 {
-  "name": "plasma-app",
+  "name": "plasma-node",
   "version": "0.0.1",
   "description": "PG Plasma full node",
+  "bin": {
+    "plasma-node": "node.js",
+    "plasma-cli": "cli.js"
+  },
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --recursive test/",
