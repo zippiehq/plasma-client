@@ -34,6 +34,11 @@ program.command('getaccount <account>').action(async (account) => {
   console.log(account)
 })
 
+program.command('createaccount').action(async () => {
+  const address = await client.createAccount()
+  console.log(`Created new account: ${address}`)
+})
+
 program.command('getbalance <account>').action(async (account) => {
   account = await parseAccount(account)
   const balances = await client.getBalances(account)
@@ -48,8 +53,10 @@ program
   .command('deposit <account> <token> <amount>')
   .action(async (account, token, amount) => {
     account = await parseAccount(account)
+    console.log(`Sending deposit transaction...`)
     const result = await client.deposit(token, amount, account)
     console.log(`Deposit transaction hash: ${result.transactionHash}`)
+    console.log(`View deposit on Etherscan: https://rinkeby.etherscan.io/tx/${result.transactionHash}`)
   })
 
 program

@@ -17,14 +17,13 @@ program
 const dbPath = path.join(__dirname, '/chaindb/')
 
 const options = {
-  logger: { log: () => { return true } },
   finalityDepth: 0,
   port: program.port,
   ethereumEndpoint: program.ethereum,
   operatorEndpoint: program.operator,
   dbPath: dbPath,
   contractProvider: PlasmaCore.providers.ContractProviders.HttpContractProvider,
-  walletProvider: PlasmaCore.providers.WalletProviders.Web3WalletProvider,
+  walletProvider: PlasmaCore.providers.WalletProviders.LocalWalletProvider,
   operatorProvider: PlasmaCore.providers.OperatorProviders.HttpOperatorProvider,
   dbProvider: PlasmaCore.providers.DBProviders.LevelDBProvider
 }
@@ -50,9 +49,6 @@ const start = async () => {
 
   console.log(getSectionTitle('Node Information'))
   console.log(`Operator: ${program.operator}`)
-
-  console.log(getSectionTitle('Logs'))
-  console.log('Node started successfully')
-  console.log(`Node listening on http://${program.hostname}:${program.port}`)
+  console.log(`Listening on: http://${program.hostname}:${program.port}`)
 }
 start()
