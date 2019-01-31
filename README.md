@@ -1,10 +1,10 @@
-# plasma-node
-`plasma-node` is a lightweight plasma chain client that allows you to make transactions on a plasma chain.
+# plasma-client
+`plasma-client` is a lightweight plasma chain client that allows you to make transactions on a plasma chain.
 You can think of it like the equivalent of [parity](https://www.parity.io/ethereum/) or [geth](https://github.com/ethereum/go-ethereum/wiki/geth) for Ethereum.
 
 ## Getting Started
-Running `plasma-node` is pretty simple.
-Here we'll take you through the steps to get started with `plasma-node` and make your first plasma transactions!
+Running `plasma-client` is pretty simple.
+Here we'll take you through the steps to get started with `plasma-client` and make your first plasma transactions!
 
 ### Running a Terminal
 Before you keep going, it's probably good to become familiar with using the terminal on your computer.
@@ -16,7 +16,7 @@ Here are some resources for getting started:
 
 ### Installing Node.js
 Most of the Plasma Group apps are built in JavaScript and make use of a tool called [Node.js](https://nodejs.org/en/).
-In order to run our tools, including `plasma-node`, you'll need to make sure that you’ve got `Node.js` installed.
+In order to run our tools, including `plasma-client`, you'll need to make sure that you’ve got `Node.js` installed.
 
 Here's a list of ways to install `Node.js` on different operating systems:
 
@@ -57,30 +57,30 @@ brew install node
 There are different ways to install `Node.js` depending on your Linux distribution.
 [Here's an article](https://nodejs.org/en/download/package-manager/) that goes through installing `Node.js` on different distributions.
 
-### Installing `plasma-node`
+### Installing `plasma-client`
 
-Once you've got `Node.js` installed, installing `plasma-node` is as simple as running this command in your terminal:
+Once you've got `Node.js` installed, installing `plasma-client` is as simple as running this command in your terminal:
 
 ```
-npm install -g plasma-node 
+npm install -g plasma-client 
 ```
 
-This command will install two programs, `plasma-node` and `plasma-cli`, that you can access from your command line. 
-`plasma-node` is the actual software that allows you to make transactions and see your balances.
-`plasma-cli` is a [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface) that talks to `plasma-node` and makes it easy to quickly start sending transactions using your terminal. 
+This command will install two programs, `plasma-client` and `plasma-cli`, that you can access from your command line. 
+`plasma-client` is the actual software that allows you to make transactions and see your balances.
+`plasma-cli` is a [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface) that talks to `plasma-client` and makes it easy to quickly start sending transactions using your terminal. 
 
-Now that you've installed `plasma-node`, it’s easy to connect to a plasma chain and send your first transaction!
+Now that you've installed `plasma-client`, it’s easy to connect to a plasma chain and send your first transaction!
 If you’re looking to quickly get started, you just run the following command in your terminal:
 
 ```
-plasma-node
+plasma-client
 ```
 
 This will connect you to the [Plasma Group plasma chain](http://plasma-testnet.surge.sh) by default.
 You can also connect to another plasma chain by running this command instead:
 
 ```
-plasma-node —-operator https://link.to.operator
+plasma-client —-operator https://link.to.operator
 ```
 
 If everything goes to plan, you should see something like this:
@@ -128,14 +128,14 @@ If you’re not familiar with GitHub and could use some more information about h
 
 ### Making your First Transaction
 **Note**:
-You **must** keep `plasma-node` running in order to send an receive transactions using `plasma-cli`.
-Make sure not to close the terminal that's running `plasma-node` during this tutorial.
+You **must** keep `plasma-client` running in order to send an receive transactions using `plasma-cli`.
+Make sure not to close the terminal that's running `plasma-client` during this tutorial.
 If you haven't already, open up a new terminal window so that you can start sending transactions.
 
 Once you’ve got the node running, it’s time to make your first transaction! Before you can send money on the plasma chain, you’ll need to deposit money into the plasma chain smart contract. Basically this just means that you’re sending some funds from your Ethereum wallet to the plasma chain smart contract’s address.
 
 #### Creating an Account
-You can use the command line interface to send funds over to the plasma chain. If you've never used `plasma-node` before, you're going to need to create your first account. Here's the command for doing that:
+You can use the command line interface to send funds over to the plasma chain. If you've never used `plasma-client` before, you're going to need to create your first account. Here's the command for doing that:
 
 ```
 plasma-cli createaccount
