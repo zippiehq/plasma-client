@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const Plasma = require('plasma-js-lib')
+const colors = require('colors')
 const program = require('commander')
 
 const parseAccount = async (account) => {
@@ -119,5 +120,11 @@ program
   .action(async () => {
     await client.operator.submitBlock()
   })
+
+if (!process.argv.slice(2).length) {
+  program.outputHelp((text) => {
+    return colors.red(text)
+  })
+}
 
 program.parse(process.argv)
