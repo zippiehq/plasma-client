@@ -3,9 +3,10 @@
 const Plasma = require('plasma-js-lib')
 const colors = require('colors')
 const program = require('commander')
+const web3Utils = require('web3-utils')
 
 const parseAccount = async (account) => {
-  if (!isNaN(account)) {
+  if (!web3Utils.isAddress(account)) {
     const accounts = await client.getAccounts()
     account = accounts[account]
   }
@@ -44,6 +45,11 @@ program.command('getbalance <account>').action(async (account) => {
   account = await parseAccount(account)
   const balances = await client.getBalances(account)
 
+  if (Object.keys(balances).length === 0) {
+    console.log('Account has no balance')
+  }
+
+  console.log('Balances:')
   for (let token in balances) {
     const balance = balances[token]
     console.log(`${token}: ${balance.toString()}`)
