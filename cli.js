@@ -55,7 +55,7 @@ program
     account = await parseAccount(account)
     console.log(`Sending deposit transaction...`)
     const result = await client.deposit(token, amount, account)
-    console.log(`Deposit transaction hash: ${result.transactionHash}`)
+    console.log('Deposit successful!')
     console.log(`View deposit on Etherscan: https://rinkeby.etherscan.io/tx/${result.transactionHash}`)
   })
 
@@ -65,6 +65,53 @@ program
     from = await parseAccount(from)
     const receipt = await client.sendTransactionAuto(from, to, token, amount)
     console.log(`Transaction receipt: ${receipt}`)
+  })
+
+program
+  .command('exit <account> <token> <amount>')
+  .action(async (account, token, amount) => {
+    account = await parseAccount(account)
+    console.log(`Sending exit transaction(s)...`)
+    const result = await client.startExit(account, token, amount)
+
+    if (result.length === 0) return
+    console.log(`Exited in ${result.length} transaction(s)`)
+    console.log(`View exit(s) on Etherscan:`)
+    result.forEach((hash, i) => {
+      const maxDigits = (result.length - 1).toString().length
+      const exitNumber = i.toString().padStart(maxDigits, '0')
+      console.log(`(${exitNumber}) https://rinkeby.etherscan.io/tx/${hash}`)
+    })
+  })
+
+program
+  .command('finalizeexits <account>')
+  .action(async (account) => {
+    account = await parseAccount(account)
+    console.log(`Sending exit finalization transaction(s)...`)
+    const result = await client.finalizeExits(account)
+    console.log(`Finalized ${result.length} exit(s)`)
+
+    if (result.length === 0) return
+    console.log(`View finalization(s) on Etherscan:`)
+    result.forEach((hash, i) => {
+      const maxDigits = (result.length - 1).toString().length
+      const exitNumber = i.toString().padStart(maxDigits, '0')
+      console.log(`(${exitNumber}) https://rinkeby.etherscan.io/tx/${hash}`)
+    })
+  })
+
+program
+  .command('getexits <account>')
+  .action(async (account) => {
+    account = await parseAccount(account)
+    const exits = await client.getExits(account)
+    exits.forEach((exit, i) => {
+      const maxDigits = (exits.length - 1).toString().length
+      const exitNumber = i.toString().padStart(maxDigits, '0')
+      const status = exit.completed ? 'READY TO BE FINALIZED' : 'IN CHALLENGE PERIOD'
+      console.log(`(${exitNumber}) Exit #${exit.id}: ${status}`)
+    })
   })
 
 program

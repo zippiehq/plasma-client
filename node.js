@@ -50,5 +50,7 @@ const start = async () => {
   console.log(getSectionTitle('Node Information'))
   console.log(`Operator: ${program.operator}`)
   console.log(`Listening on: http://${program.hostname}:${program.port}`)
+
+  console.log(getSectionTitle('Logs'))
 }
 start()
