@@ -32,7 +32,7 @@
     "body-parser": "^1.18.3",
     "commander": "^2.19.0",
     "express": "^4.16.4",
-    "plasma-core": "^0.0.4-beta.5",
+    "plasma-core": "^0.0.4-beta.6",
     "plasma-js-lib": "^0.0.4-beta.0"
   },
   "devDependencies": {
