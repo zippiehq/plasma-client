@@ -189,6 +189,25 @@ View deposit on Etherscan: https://rinkeby.etherscan.io/tx/0xa066eb33b4d613ca4f0
 
 This is going to submit a deposit transaction for 500 wei from the `0th` (first) account.
 
+You can check that the deposit was successful by looking at your balance with the `getbalance` command:
+
+```
+plasma-cli getbalance <account>
+
+```
+
+Let's try it:
+
+```
+plasma-cli getbalance 0
+```
+
+Your balance should (ideally) be 500:
+
+```
+0: 500
+```
+
 #### Sending a Transaction
 We're almost there!
 Sending a transaction is as simple as running one command that looks like this:
@@ -216,6 +235,24 @@ Transaction receipt: 0000039a0120a229b0677D7fe42214c15942B6c40cD1340249d42b2b067
 
 This means you've just sent a plasma transaction! 🎉🎉🎉🎉
 
+If you check the balance of your first account, you'll notice that it's empty:
+
+```
+plasma-cli getbalance 0
+```
+
+However, if you check the balance of your second account...
+
+```
+plasma-cli getbalance 1
+```
+
+You should see a result!
+
+```
+0: 500
+```
+
 #### Starting an Exit
 Sending a transaction is fun, but it's meaningless if you can't get your money back out.
 Now we're going to try doing exactly that.
@@ -237,7 +274,16 @@ Rememver, this means that we're withdrawing 500 wei from the account at index 1 
 You should get a notification that your exit transactions were submitted:
 
 ```
+Sending exit transaction(s)...
+Exited in 1 transaction(s)
+View exit(s) on Etherscan:
+(0) https://rinkeby.etherscan.io/tx/0xfa23433c145d3ffc222dd1504bd388a4bfc993a08647edc5988e70f18b8b4918
+```
 
+The decrease in your balance will be immediately reflected:
+
+```
+plasma-cli getbalance 1
 ```
 
 However, if you click on those Etherscan links you'll notice that you aren't actually withdrawing any money.
