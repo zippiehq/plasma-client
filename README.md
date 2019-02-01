@@ -14,6 +14,25 @@ Here are some resources for getting started:
 - [MacOS: Introduction to the Mac OS X Command Line](https://blog.teamtreehouse.com/introduction-to-the-mac-os-x-command-line)
 - [Linux: How to Start Using the Linux Terminal](https://www.howtogeek.com/140679/beginner-geek-how-to-start-using-the-linux-terminal/)
 
+### Installing Git
+`git` is an open source version control system.
+You don't really need to know how it works, but you *will* need it in order to install `plasma-client`.
+
+#### Windows
+Atlassian has a [good tutorial](https://www.atlassian.com/git/tutorials/install-git#windows) on installing `git` on Windows.
+It's basically just installing an `.exe` and running a setup wizard.
+
+#### MacOS
+Installing `git` on a Mac is [pretty easy](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+You basically just need to type `git` into your terminal.
+If you have `git` installed, you'll see a bunch of output.
+Otherwise, you'll get a pop-up asking you to install some command-line tools (including `git`).
+
+#### Linux
+Installing `git` on Linux is also pretty easy.
+However, the exact install process depends on your distribution.
+[Here's a guide](https://gist.github.com/derhuerst/1b15ff4652a867391f03#file-linux-md) for installing on some popular distributions.
+
 ### Installing Node.js
 Most of the Plasma Group apps are built in JavaScript and make use of a tool called [Node.js](https://nodejs.org/en/).
 In order to run our tools, including `plasma-client`, you'll need to make sure that you’ve got `Node.js` installed.
