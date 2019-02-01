@@ -70,6 +70,7 @@ program
   .command('send <from> <to> <token> <amount>')
   .action(async (from, to, token, amount) => {
     from = await parseAccount(from)
+    to = await parseAccount(to)
     const receipt = await client.sendTransactionAuto(from, to, token, amount)
     console.log(`Transaction receipt: ${receipt}`)
   })

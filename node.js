@@ -10,8 +10,8 @@ program
   .version('0.0.1')
   .option('-o, --operator <endpoint>', 'Endpoint of the operator to connect to.', 'http://107.22.13.89/api')
   .option('-e, --ethereum <endpoint>', 'Endpoint of the Ethereum node to connect to.', 'https://rinkeby.infura.io/v3/fce31f1fb2d54caa9b31ed7d28437fa5')
-  .option('-h, --hostname <hostname>', 'Host to run the node on.', 'localhost')
-  .option('-p, --port <port>', 'Port to run the node on.', '9898')
+  .option('-h, --hostname <hostname>', 'Host to run the client on.', 'localhost')
+  .option('-p, --port <port>', 'Port to run the client on.', '9898')
   .parse(process.argv)
 
 const dbPath = path.join(__dirname, '/chaindb/')
@@ -38,7 +38,7 @@ const getSectionTitle = (title) => {
 
 const start = async () => {
   await node.start()
-  console.log('Plasma Node v' + pkg.version)
+  console.log('Plasma Client v' + pkg.version)
 
   console.log(getSectionTitle('Available Accounts'))
   const accounts = await client.getAccounts()
@@ -48,7 +48,7 @@ const start = async () => {
     console.log(`(${accountNumber}) ${account}`)
   })
 
-  console.log(getSectionTitle('Node Information'))
+  console.log(getSectionTitle('Client Information'))
   console.log(`Operator: ${program.operator}`)
   console.log(`Ethereum Node: ${program.ethereum}`)
   console.log(`Listening on: http://${program.hostname}:${program.port}`)
