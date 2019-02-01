@@ -40,7 +40,9 @@ v10.15.1
 ```
 
 ##### Homebrew
-You can also install `Node.js` using [Homebrew](https://brew.sh/). 
+**Note**: If you've already installed `Node.js` with the above steps, you can skip this section!
+
+You can also install `Node.js` using [Homebrew](https://brew.sh/).
 First, make sure Homebrew is up to date:
 
 ```
@@ -65,11 +67,35 @@ Once you've got `Node.js` installed, installing `plasma-client` is as simple as 
 npm install -g plasma-client 
 ```
 
-This command will install two programs, `plasma-client` and `plasma-cli`, that you can access from your command line. 
-`plasma-client` is the actual software that allows you to make transactions and see your balances.
-`plasma-cli` is a [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface) that talks to `plasma-client` and makes it easy to quickly start sending transactions using your terminal. 
+You might get an error that looks like this:
 
-Now that you've installed `plasma-client`, it’s easy to connect to a plasma chain and send your first transaction!
+```
+npm ERR! Error: EACCES: permission denied, access '/usr/local/lib/node_modules'
+npm ERR!  { [Error: EACCES: permission denied, access '/usr/local/lib/node_modules']
+npm ERR!   stack:
+npm ERR!    "Error: EACCES: permission denied, access '/usr/local/lib/node_modules'",
+npm ERR!   errno: -13,
+npm ERR!   code: 'EACCES',
+npm ERR!   syscall: 'access',
+npm ERR!   path: '/usr/local/lib/node_modules' }
+```
+
+Don't worry, you're not doing anything wrong!
+This has to do with how `Node.js` installs things -- sometimes it tries to install stuff in places it doesn't have permission to install.
+There are a few ways to get around this problem.
+First, try following [these instructions](https://github.com/sindresorhus/guides/blob/master/npm-global-without-sudo.md), then restart your terminal and try installing `plasma-client` again.
+If you can't get that to work, you can also try installing as root:
+
+```
+sudo npm install -g plasma-client
+```
+
+Once you get `plasma-client` install, you'll have access to two commands from your terminal, `plasma-client` and `plasma-cli`.
+`plasma-client` is the actual software that allows you to make transactions and see your balances.
+`plasma-cli` is a [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface) that talks to `plasma-client` and makes it easy to quickly start sending transactions using your terminal.
+
+### Launching the Client
+Now that you've installed `plasma-client`, it’s easy to connect to a plasma chain!
 If you’re looking to quickly get started, you just run the following command in your terminal:
 
 ```
@@ -86,7 +112,7 @@ plasma-client —-operator https://link.to.operator
 If everything goes to plan, you should see something like this:
 
 ```
-Plasma Node v0.0.4-beta.4
+Plasma Client v0.0.4-beta.4
 
 Available Accounts
 ==================
@@ -96,8 +122,8 @@ Available Accounts
 (3) 0x847B9EB499e332cC92f6B9649b9419FD0A2Abf53
 (4) 0xd42b2b067cD2B2EDA3F7D3AdC9d3b400665CE814
 
-Node Information
-================
+Client Information
+==================
 Operator: http://107.22.13.89/api
 
 Listening on: http://localhost:9898
@@ -107,7 +133,7 @@ Logs
   service:operator Successfully connected to operator +0ms
 ```
 
-That means your node is running and ready to start sending and receiving transactions. Congrats!
+That means your client is running and ready to start sending and receiving transactions. Congrats!
 
 #### Common Errors
 The Plasma Group plasma chain currently uses a single party, called an operator, to aggregate transactions into blocks.
@@ -130,12 +156,16 @@ If you’re not familiar with GitHub and could use some more information about h
 **Note**:
 You **must** keep `plasma-client` running in order to send an receive transactions using `plasma-cli`.
 Make sure not to close the terminal that's running `plasma-client` during this tutorial.
-If you haven't already, open up a new terminal window so that you can start sending transactions.
+Open up a new terminal window before you keep going.
 
-Once you’ve got the node running, it’s time to make your first transaction! Before you can send money on the plasma chain, you’ll need to deposit money into the plasma chain smart contract. Basically this just means that you’re sending some funds from your Ethereum wallet to the plasma chain smart contract’s address.
+Once you’ve got the client running, it’s time to make your first transaction!
+Before you can send money on the plasma chain, you’ll need to deposit money into the plasma chain smart contract.
+Basically this just means that you’re sending some funds from your Ethereum wallet to the plasma chain smart contract’s address.
 
 #### Creating an Account
-You can use the command line interface to send funds over to the plasma chain. If you've never used `plasma-client` before, you're going to need to create your first account. Here's the command for doing that:
+You can use the command line interface to send funds over to the plasma chain.
+If you've never used `plasma-client` before, you're going to need to create your first account.
+Here's the command for doing that:
 
 ```
 plasma-cli createaccount
@@ -163,15 +193,29 @@ Hopefully you'll see a list of your accounts!
 ```
 
 #### Submitting a Deposit
-You're almost ready to submit a deposit! Our plasma chain is currently deployed to the Ethereum test network (Rinkeby). Before you can deposit, you're going to need some testnet ETH. You can quickly get some using the [Rinkeby testnet faucet](https://faucet.rinkeby.io/) or by tweeting at us on [Twitter](https://twitter.com/plasma_group).
+You're almost ready to submit a deposit!
+Our plasma chain is currently deployed to the Ethereum test network (Rinkeby).
+Before you can deposit, you're going to need some testnet ETH.
+You can quickly get some using the [Rinkeby testnet faucet](https://faucet.rinkeby.io/) or by tweeting at us on [Twitter](https://twitter.com/plasma_group).
 
-Once you've got some testnet ETH, you can submit your first deposit. The format of the deposit command looks like this (don’t copy this one): 
+**Note**:
+We recommend using the faucet to send testnet ETH to a [MetaMask](https://metamask.io/) wallet.
+This makes it easier to send ETH to other accounts.
+**You need to send a little ETH to each account that you've created.**
+
+Once you've got some testnet ETH, you can submit your first deposit.
+The format of the deposit command looks like this (don’t copy this one): 
 
 ```
 plasma-cli deposit <account> <token> <amount>
 ```
 
-In place of `<account>` you’ll want to insert the account you’re depositing with. This can either be the “index” of the account (the number you see in front of the address when you run `listaccounts`) or the address of the account. In place of `<token>`, you can put the contract address of the token you're depositing (ETH is just "0"). We support [ERC20](https://en.wikipedia.org/wiki/ERC-20) tokens, but for now we're just going to leave `<token>` as 0 and deposit some ETH. Finally, `<amount>` is the total amount of ETH you're going to deposit, denominated in [wei](https://www.investopedia.com/terms/w/wei.asp). You can use [this Ethereum unit converter](https://etherconverter.online/) to easily calculate how much testnet ETH you'll be depositing.
+In place of `<account>` you’ll want to insert the account you’re depositing with.
+This can either be the “index” of the account (the number you see in front of the address when you run `listaccounts`) or the address of the account.
+In place of `<token>`, you can put the contract address of the token you're depositing (ETH is just "0").
+We support [ERC20](https://en.wikipedia.org/wiki/ERC-20) tokens, but for now we're just going to leave `<token>` as 0 and deposit some ETH.
+Finally, `<amount>` is the total amount of ETH you're going to deposit, denominated in [wei](https://www.investopedia.com/terms/w/wei.asp).
+You can use [this Ethereum unit converter](https://etherconverter.online/) to easily calculate how much testnet ETH you'll be depositing.
 
 Let's go ahead and deposit a few hundred wei:
 
@@ -217,14 +261,15 @@ plasma-cli send <from> <to> <token> <amount>
 ```
 
 `<from>` is the account you're going to send money from.
-As with `deposit`, you can either put the full address or use the account index. `<to>` is the address you're sending money to.
-This *must* be an Ethereum address (e.g. `0x4cdC4f412355F296C2cf261210Cc9274404E442b`).
+As with `deposit`, you can either put the full address or use the account index.
+`<to>` is the address you're sending money to.
+If you want to just try sending money to yourself, you can use an account index.
+Otherwise you can also use an Ethereum address (e.g. `0x4cdC4f412355F296C2cf261210Cc9274404E442b`).
 
 Let's go ahead and send 500 wei to your other account.
-Again, make sure to replace `0x4cdC4f412355F296C2cf261210Cc9274404E442b` with the address of your second account!
 
 ```
-plasma-cli send 0 0x4cdC4f412355F296C2cf261210Cc9274404E442b 0 500
+plasma-cli send 0 1 0 500
 ```
 
 If everything goes according to plan, you'll see a transaction receipt:
@@ -235,7 +280,17 @@ Transaction receipt: 0000039a0120a229b0677D7fe42214c15942B6c40cD1340249d42b2b067
 
 This means you've just sent a plasma transaction! 🎉🎉🎉🎉
 
-If you check the balance of your first account, you'll notice that it's empty:
+You'll probably have to wait a few second for the transaction to be detected and imported.
+Take a look at the other terminal where you're running `plasma-client`.
+After about thirty seconds, you should see a message saying a new transaction has been imported:
+
+```
+service:sync Detected new transaction: 0xee208ad1f181b909c4ee969f999da990cd65f0f9d90f6ef2e1169929f5c96602 +443ms
+service:sync Attemping to pull information for transaction: 0xee208ad1f181b909c4ee969f999da990cd65f0f9d90f6ef2e1169929f5c96602 +1ms
+service:sync Successfully imported transaction: 0xee208ad1f181b909c4ee969f999da990cd65f0f9d90f6ef2e1169929f5c96602 +10ms
+```
+
+Now, if you check the balance of your first account, you'll notice that it's empty:
 
 ```
 plasma-cli getbalance 0
@@ -346,4 +401,5 @@ View finalization(s) on Etherscan:
 (0) https://rinkeby.etherscan.io/tx/0x2f6dcf6f556eaf23682c42172dade96426ef84b55bea397bdc956ed7e3c36504
 ```
 
-Congrats, you've just gone through the entire flow of using a plasma chain. Hopefully it didn't break too many times.
+Congrats, you've just gone through the entire flow of using a plasma chain
+Hopefully it didn't break too many times.
