@@ -36,7 +36,7 @@ npm install
 ```
 
 ### Running Tests
-`plasma-core` makes use of a combination of [`Mocha`](https://mochajs.org/) (a testing framework) and [`Chai`](https://www.chaijs.com/) (an assertion library) for testing.
+`plasma-client` makes use of a combination of [`Mocha`](https://mochajs.org/) (a testing framework) and [`Chai`](https://www.chaijs.com/) (an assertion library) for testing.
 
 Run all tests with:
 
@@ -209,7 +209,7 @@ This usually means that you're not connected to the internet or, more likely, th
 We’re working really hard to beef up our operator and keep these outages minimized, but failures do happen.
 You can check our [Twitter](http://twitter.com/plasma_group) for updates on outages.
 
-If the program says something else when you run it, or you spot another error, please submit a [bug report](https://github.com/plasma-group/plasma-core/issues/new?assignees=&labels=&template=bug_report.md&title=) on GitHub.
+If the program says something else when you run it, or you spot another error, please submit a [bug report](https://github.com/plasma-group/plasma-client/issues/new?assignees=&labels=&template=bug_report.md&title=) on GitHub.
 If you’re not familiar with GitHub and could use some more information about how to submit your first bug report, check out our [resources] page.
 
 ### Making your First Transaction
