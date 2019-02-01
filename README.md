@@ -1,4 +1,6 @@
 # plasma-client
+[![Build Status](https://travis-ci.org/plasma-group/plasma-client.svg?branch=master)](https://travis-ci.org/plasma-group/plasma-client)
+
 `plasma-client` is a lightweight plasma chain client that allows you to make transactions on a plasma chain.
 You can think of it like the equivalent of [parity](https://www.parity.io/ethereum/) or [geth](https://github.com/ethereum/go-ethereum/wiki/geth) for Ethereum.
 
