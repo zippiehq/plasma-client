@@ -2,6 +2,52 @@
 `plasma-client` is a lightweight plasma chain client that allows you to make transactions on a plasma chain.
 You can think of it like the equivalent of [parity](https://www.parity.io/ethereum/) or [geth](https://github.com/ethereum/go-ethereum/wiki/geth) for Ethereum.
 
+---
+
+**Just looking to make your first transaction?**
+Skip ahead to the [Getting Started](#getting-started) section!
+
+---
+
+## Contributing
+Welcome! If you're looking to contribute to `plasma-client`, you're in the right place.
+
+### Contributing Guide and CoC
+Plasma Group follows a [Contributing Guide and Code of Conduct](https://github.com/plasma-group/plasma-client/blob/master/.github/CONTRIBUTING.md) adapted slightly from the [Contributor Covenant](https://www.contributor-covenant.org/version/1/4/code-of-conduct.html).
+All contributors are expected to read through this guide.
+We're here to cultivate a welcoming and inclusive contributing environment, and every new contributor needs to do their part to uphold our community standards.
+
+### Contributor Setup
+#### Requirements
+`plasma-client` has a few requirements:
+
+- `git`
+- `Node.js`
+
+You'll find detailed instructions on installing these requirements in our [Getting Started](#getting-started) section.
+
+#### Packages
+`plasma-client` makes use of several `npm` packages.
+
+Install all required packages with:
+
+```
+npm install
+```
+
+### Running Tests
+`plasma-core` makes use of a combination of [`Mocha`](https://mochajs.org/) (a testing framework) and [`Chai`](https://www.chaijs.com/) (an assertion library) for testing.
+
+Run all tests with:
+
+```
+npm test
+```
+
+**Contributors: remember to run tests before submitting a pull request!** Code with passing tests makes life easier for everyone and means your contribution can get pulled into this project faster. :-)
+
+---
+
 ## Getting Started
 Running `plasma-client` is pretty simple.
 Here we'll take you through the steps to get started with `plasma-client` and make your first plasma transactions!
@@ -135,11 +181,6 @@ Plasma Client v0.0.4-beta.4
 
 Available Accounts
 ==================
-(0) 0x20a229b0677D7fe42214c15942B6c40cD1340249
-(1) 0x5322286C8bb78F4F8ee21452ed68c6f610D7A4AD
-(2) 0x6bD7B1466beC0e8dc6E9b9099fAb75635a06CA9e
-(3) 0x847B9EB499e332cC92f6B9649b9419FD0A2Abf53
-(4) 0xd42b2b067cD2B2EDA3F7D3AdC9d3b400665CE814
 
 Client Information
 ==================
@@ -420,5 +461,5 @@ View finalization(s) on Etherscan:
 (0) https://rinkeby.etherscan.io/tx/0x2f6dcf6f556eaf23682c42172dade96426ef84b55bea397bdc956ed7e3c36504
 ```
 
-Congrats, you've just gone through the entire flow of using a plasma chain
+Congrats, you've just gone through the entire flow of using a plasma chain!
 Hopefully it didn't break too many times.
