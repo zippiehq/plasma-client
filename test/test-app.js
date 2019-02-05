@@ -6,7 +6,10 @@ chai.should()
 chai.use(chaiAsPromised)
 
 describe('Plasma Node', () => {
-  const node = new PlasmaNode()
+  const node = new PlasmaNode({
+    eventPollInterval: 100,
+    transactionPollInterval: 100
+  })
 
   it('should start correctly', async () => {
     await node.start().should.eventually.be.fulfilled
