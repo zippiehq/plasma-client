@@ -93,7 +93,7 @@ You'll just need to install the `.msi` file that `Node.js` provides and restart 
 
 #### MacOS
 You have some options if you want to install `Node.js` on a Mac.
-The simplest way is to download the `.pkg` file from the `Node.js` [downloads page](ps://nodejs.org/en/download/).
+The simplest way is to download the `.pkg` file from the `Node.js` [downloads page](https://nodejs.org/en/download/).
 Once you've installed the `.pkg` file, run this command on your terminal to make sure everything is working properly:
 
 ```
