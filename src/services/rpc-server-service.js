@@ -1,12 +1,15 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const core = require('plasma-core')
+const BaseService = core.providers.BaseService
 
 /**
  * Runs a JSON-RPC server and handles incoming requests.
  */
-class RPCServerService {
+class RPCServerService extends BaseService {
   constructor (options) {
-    this.app = options.app
+    super(options)
+
     this.port = options.port
 
     this.expressApp = express()

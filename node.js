@@ -8,7 +8,7 @@ const pkg = require('./package.json')
 
 program
   .version('0.0.1')
-  .option('-o, --operator <endpoint>', 'Endpoint of the operator to connect to.', 'http://107.22.13.89/api')
+  .option('-o, --operator <endpoint>', 'Endpoint of the operator to connect to.', 'https://operator.plasma.group/api')
   .option('-e, --ethereum <endpoint>', 'Endpoint of the Ethereum node to connect to.', 'https://rinkeby.infura.io/v3/fce31f1fb2d54caa9b31ed7d28437fa5')
   .option('-h, --hostname <hostname>', 'Host to run the client on.', 'localhost')
   .option('-p, --port <port>', 'Port to run the client on.', '9898')
@@ -23,7 +23,7 @@ const options = {
   operatorEndpoint: program.operator,
   dbPath: dbPath,
   debug: 'service:*',
-  contractProvider: PlasmaCore.providers.ContractProviders.HttpContractProvider,
+  contractProvider: PlasmaCore.providers.ContractProviders.ContractProvider,
   walletProvider: PlasmaCore.providers.WalletProviders.LocalWalletProvider,
   operatorProvider: PlasmaCore.providers.OperatorProviders.HttpOperatorProvider,
   dbProvider: PlasmaCore.providers.DBProviders.LevelDBProvider

@@ -47,6 +47,7 @@ program.command('getbalance <account>').action(async (account) => {
 
   if (Object.keys(balances).length === 0) {
     console.log('Account has no balance')
+    return
   }
 
   console.log('Balances:')
