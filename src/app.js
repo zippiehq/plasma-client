@@ -1,5 +1,5 @@
 const PlasmaCore = require('plasma-core')
-const PlasmaClient = require('plasma-js-lib')
+const Plasma = require('plasma-js-lib')
 const RPCServerService = require('./services/rpc-server-service')
 
 const defaultOptions = {
@@ -17,7 +17,9 @@ class PlasmaNode {
     this.core.registerService(RPCServerService, {
       port: options.port
     })
-    this.client = new PlasmaClient(new PlasmaClient.providers.HttpProvider(`http://localhost:${options.port}`))
+    this.client = new Plasma(
+      new Plasma.providers.HttpProvider(`http://localhost:${options.port}`)
+    )
   }
 
   /**
