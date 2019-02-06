@@ -1,6 +1,6 @@
 {
   "name": "plasma-client",
-  "version": "0.0.4-beta.14",
+  "version": "0.0.4-beta.15",
   "description": "PG Plasma full node",
   "bin": {
     "plasma-client": "node.js",
@@ -33,6 +33,7 @@
     "colors": "^1.3.3",
     "commander": "^2.19.0",
     "express": "^4.16.4",
+    "latest-version": "^4.0.0",
     "plasma-core": "^0.0.4-beta.18",
     "plasma-js-lib": "^0.0.4-beta.2",
     "plasma-utils": "0.0.4-beta.0",

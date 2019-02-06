@@ -2,8 +2,10 @@
 
 const path = require('path')
 const program = require('commander')
+const colors = require('colors')
 const PlasmaCore = require('plasma-core')
 const PlasmaNode = require('./index')
+const latestVersion = require('latest-version')
 const pkg = require('./package.json')
 
 program
@@ -36,9 +38,21 @@ const getSectionTitle = (title) => {
   return '\n' + title + '\n' + '='.repeat(title.length)
 }
 
-const start = async () => {
+(async () => {
+  const latest = await latestVersion(pkg.name)
+  if (pkg.version !== latest) {
+    console.log(colors.red('ERROR: Your plasma-client is out of date.'))
+    console.log('Please update to the latest version by running:')
+    console.log('npm install -g --upgrade plasma-client')
+    return
+  }
+
   await node.start()
-  console.log('Plasma Client v' + pkg.version)
+  console.log('Plasma Client v' + pkg.version + ' 🎉 🎉 🎉 ')
+
+  console.log(getSectionTitle('DISCLAIMER'))
+  console.log('Plasma Client is alpha software and will probably break.')
+  console.log(`Please do NOT use this application with real money (unless you're willing to lose it).`)
 
   console.log(getSectionTitle('Available Accounts'))
   const accounts = await client.getAccounts()
@@ -54,5 +68,4 @@ const start = async () => {
   console.log(`Listening on: http://${program.hostname}:${program.port}`)
 
   console.log(getSectionTitle('Logs'))
-}
-start()
+})()
