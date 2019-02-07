@@ -1,9 +1,7 @@
 const chai = require('chai')
-const chaiAsPromised = require('chai-as-promised')
 const PlasmaNode = require('../src/app')
 
-chai.should()
-chai.use(chaiAsPromised)
+const should = chai.should()
 
 describe('Plasma Node', () => {
   const node = new PlasmaNode({
@@ -12,10 +10,14 @@ describe('Plasma Node', () => {
   })
 
   it('should start correctly', async () => {
-    await node.start().should.eventually.be.fulfilled
+    should.not.Throw(async () => {
+      await node.start()
+    })
   })
 
   it('should stop correctly', async () => {
-    await node.stop().should.eventually.be.fulfilled
+    should.not.Throw(async () => {
+      await node.stop()
+    })
   })
 })
