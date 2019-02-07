@@ -26,14 +26,12 @@ class RPCServerService extends BaseService {
     return 'rpcserver'
   }
 
-  async start () {
+  async _onStart () {
     this.server = this.expressApp.listen(this.port)
-    this.started = true
   }
 
-  async stop () {
+  async _onStop () {
     this.server.close()
-    this.started = false
   }
 }
 

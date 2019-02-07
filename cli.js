@@ -21,6 +21,7 @@ program
 const client = new Plasma(
   new Plasma.providers.HttpProvider(`http://${program.hostname}:${program.port}`)
 )
+const operator = new Plasma.PlasmaOperator('http://localhost:3000/api')
 
 program.command('listaccounts').action(async () => {
   const accounts = await client.getAccounts()
@@ -126,7 +127,7 @@ program
 program
   .command('submitblock')
   .action(async () => {
-    await client.operator.submitBlock()
+    await operator.submitBlock()
   })
 
 if (!process.argv.slice(2).length) {

@@ -13,10 +13,16 @@ program
   .option('-o, --operator <endpoint>', 'Endpoint of the operator to connect to.', 'https://operator.plasma.group/api')
   .option('-e, --ethereum <endpoint>', 'Endpoint of the Ethereum node to connect to.', 'https://rinkeby.infura.io/v3/fce31f1fb2d54caa9b31ed7d28437fa5')
   .option('-h, --hostname <hostname>', 'Host to run the client on.', 'localhost')
+  .option('-w, --wallet <wallet>', 'Which wallet to use. Either "remote" or "local".', 'local')
   .option('-p, --port <port>', 'Port to run the client on.', '9898')
   .parse(process.argv)
 
 const dbPath = path.join(__dirname, '/chaindb/')
+
+const wallets = {
+  'local': PlasmaCore.providers.WalletProviders.LocalWalletProvider,
+  'remote': PlasmaCore.providers.WalletProviders.Web3WalletProvider
+}
 
 const options = {
   finalityDepth: 0,
@@ -26,7 +32,7 @@ const options = {
   dbPath: dbPath,
   debug: 'service:*',
   contractProvider: PlasmaCore.providers.ContractProviders.ContractProvider,
-  walletProvider: PlasmaCore.providers.WalletProviders.LocalWalletProvider,
+  walletProvider: wallets[program.wallet],
   operatorProvider: PlasmaCore.providers.OperatorProviders.HttpOperatorProvider,
   dbProvider: PlasmaCore.providers.DBProviders.LevelDBProvider
 }
