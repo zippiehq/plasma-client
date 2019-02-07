@@ -15,6 +15,7 @@ program
   .option('-h, --hostname <hostname>', 'Host to run the client on.', 'localhost')
   .option('-w, --wallet <wallet>', 'Which wallet to use. Either "remote" or "local".', 'local')
   .option('-p, --port <port>', 'Port to run the client on.', '9898')
+  .option('-d, --debug', 'Runs the node in debug mode')
   .parse(process.argv)
 
 const dbPath = path.join(__dirname, '/chaindb/')
@@ -24,13 +25,15 @@ const wallets = {
   'remote': PlasmaCore.providers.WalletProviders.Web3WalletProvider
 }
 
+const debug = program.debug ? 'debug:*' : ''
+
 const options = {
   finalityDepth: 0,
   port: program.port,
   ethereumEndpoint: program.ethereum,
   operatorEndpoint: program.operator,
   dbPath: dbPath,
-  debug: 'service:*',
+  debug: `service:*,${debug}`,
   contractProvider: PlasmaCore.providers.ContractProviders.ContractProvider,
   walletProvider: wallets[program.wallet],
   operatorProvider: PlasmaCore.providers.OperatorProviders.HttpOperatorProvider,
