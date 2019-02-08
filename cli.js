@@ -7,7 +7,7 @@ const web3Utils = require('web3-utils')
 
 const parseAccount = async (account) => {
   if (!web3Utils.isAddress(account)) {
-    const accounts = await client.getAccounts()
+    const accounts = await createClient().getAccounts()
     account = accounts[account]
   }
   return account
@@ -18,13 +18,13 @@ program
   .option('-h, --hostname <hostname>', 'Host the node is running on. Defaults to 127.0.0.1.', '127.0.0.1')
   .option('-p, --port <port>', 'Port the node is running on. Defaults to 9898.', '9898')
 
-const client = new Plasma(
+const createClient = () => new Plasma(
   new Plasma.providers.HttpProvider(`http://${program.hostname}:${program.port}`)
 )
 const operator = new Plasma.PlasmaOperator('http://localhost:3000/api')
 
 program.command('listaccounts').action(async () => {
-  const accounts = await client.getAccounts()
+  const accounts = await createClient().getAccounts()
   accounts.forEach((account, i) => {
     const maxDigits = (accounts.length - 1).toString().length
     const accountNumber = i.toString().padStart(maxDigits, '0')
@@ -38,13 +38,13 @@ program.command('getaccount <account>').action(async (account) => {
 })
 
 program.command('createaccount').action(async () => {
-  const address = await client.createAccount()
+  const address = await createClient().createAccount()
   console.log(`Created new account: ${address}`)
 })
 
 program.command('getbalance <account>').action(async (account) => {
   account = await parseAccount(account)
-  const balances = await client.getBalances(account)
+  const balances = await createClient().getBalances(account)
 
   if (Object.keys(balances).length === 0) {
     console.log('Account has no balance')
@@ -63,7 +63,7 @@ program
   .action(async (account, token, amount) => {
     account = await parseAccount(account)
     console.log(`Sending deposit transaction...`)
-    const result = await client.deposit(token, amount, account)
+    const result = await createClient().deposit(token, amount, account)
     console.log('Deposit successful!')
     console.log(`View deposit on Etherscan: https://rinkeby.etherscan.io/tx/${result.transactionHash}`)
   })
@@ -73,7 +73,7 @@ program
   .action(async (from, to, token, amount) => {
     from = await parseAccount(from)
     to = await parseAccount(to)
-    const receipt = await client.sendTransaction(from, to, token, amount)
+    const receipt = await createClient().sendTransaction(from, to, token, amount)
     console.log(`Transaction receipt: ${receipt}`)
   })
 
@@ -82,7 +82,7 @@ program
   .action(async (account, token, amount) => {
     account = await parseAccount(account)
     console.log(`Sending exit transaction(s)...`)
-    const result = await client.startExit(account, token, amount)
+    const result = await createClient().startExit(account, token, amount)
 
     if (result.length === 0) return
     console.log(`Exited in ${result.length} transaction(s)`)
@@ -99,7 +99,7 @@ program
   .action(async (account) => {
     account = await parseAccount(account)
     console.log(`Sending exit finalization transaction(s)...`)
-    const result = await client.finalizeExits(account)
+    const result = await createClient().finalizeExits(account)
     console.log(`Finalized ${result.length} exit(s)`)
 
     if (result.length === 0) return
@@ -115,7 +115,7 @@ program
   .command('getexits <account>')
   .action(async (account) => {
     account = await parseAccount(account)
-    const exits = await client.getExits(account)
+    const exits = await createClient().getExits(account)
     exits.forEach((exit, i) => {
       const maxDigits = (exits.length - 1).toString().length
       const exitNumber = i.toString().padStart(maxDigits, '0')
