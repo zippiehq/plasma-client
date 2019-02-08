@@ -167,7 +167,9 @@ program
       }
     ])
     if (response.confirm) {
+      console.log('Deleting local chain data...')
       rimraf.sync(dbPath)
+      console.log('Local chain data deleted.')
     }
   })
 
