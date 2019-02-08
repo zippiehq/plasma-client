@@ -17,11 +17,12 @@ program
   .version('0.0.1')
   .option('-h, --hostname <hostname>', 'Host the node is running on. Defaults to 127.0.0.1.', '127.0.0.1')
   .option('-p, --port <port>', 'Port the node is running on. Defaults to 9898.', '9898')
+  .option('-o, --operator <operator>', 'URL of the operator api. Defaults to http://localhost:3000/api.', 'http://localhost:3000/api')
 
 const createClient = () => new Plasma(
   new Plasma.providers.HttpProvider({endpoint: `http://${program.hostname}:${program.port}`})
 )
-const operator = new Plasma.PlasmaOperator('http://localhost:3000/api')
+const createOperator = () => new Plasma.PlasmaOperator(program.operator)
 
 program.command('listaccounts').action(async () => {
   const accounts = await createClient().getAccounts()
@@ -127,7 +128,7 @@ program
 program
   .command('submitblock')
   .action(async () => {
-    await operator.submitBlock()
+    await createOperator().submitBlock()
   })
 
 if (!process.argv.slice(2).length) {
