@@ -19,7 +19,7 @@ program
   .option('-p, --port <port>', 'Port the node is running on. Defaults to 9898.', '9898')
 
 const createClient = () => new Plasma(
-  new Plasma.providers.HttpProvider(`http://${program.hostname}:${program.port}`)
+  new Plasma.providers.HttpProvider({endpoint: `http://${program.hostname}:${program.port}`})
 )
 const operator = new Plasma.PlasmaOperator('http://localhost:3000/api')
 
