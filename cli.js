@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
 const Plasma = require('plasma-js-lib')
+const path = require('path')
 const colors = require('colors')
 const program = require('commander')
+const inquirer = require('inquirer')
+const rimraf = require('rimraf')
 const web3Utils = require('web3-utils')
 
 program
@@ -11,6 +14,7 @@ program
   .option('-p, --port <port>', 'Port the node is running on. Defaults to 9898.', '9898')
 
 const client = () => new Plasma(`http://${program.hostname}:${program.port}`)
+const dbPath = path.join(__dirname, '/chaindb/')
 
 /**
  * Converts an account index into an address.
@@ -149,6 +153,22 @@ program
   .action(async () => {
     const block = await client().submitBlock()
     console.log(`Submitted block #${block}`)
+  })
+
+program
+  .command('killdb')
+  .description('removes all stored chain data but does not remove private keys')
+  .action(async () => {
+    const response = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'confirm',
+        message: colors.yellow('WARNING: ') + 'All local chain data will be deleted. Are you sure you want to do this?'
+      }
+    ])
+    if (response.confirm) {
+      rimraf.sync(dbPath)
+    }
   })
 
 if (!process.argv.slice(2).length) {

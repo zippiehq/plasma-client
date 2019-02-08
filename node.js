@@ -10,7 +10,7 @@ const pkg = require('./package.json')
 
 program
   .version('0.0.1')
-  .option('-c, --chain <name>', 'Name of the plasma chain to connect to.', 'PG-beta.8')
+  .option('-c, --chain <name>', 'Name of the plasma chain to connect to.', 'PG-beta.10')
   .option('-e, --ethereum <endpoint>', 'Endpoint of the Ethereum node to connect to.', 'https://rinkeby.infura.io/v3/fce31f1fb2d54caa9b31ed7d28437fa5')
   .option('-h, --hostname <hostname>', 'Host to run the client on.', 'localhost')
   .option('-p, --port <port>', 'Port to run the client on.', '9898')
