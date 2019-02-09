@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-const path = require('path')
 const program = require('commander')
 const colors = require('colors')
 const PlasmaCore = require('plasma-core')
@@ -20,9 +19,6 @@ program
   .option('-f, --finality <blocks>', 'Number of blocks to wait before considering events final.', parseInt, 0)
   .parse(process.argv)
 
-// TODO: Fix this path.
-const dbPath = path.join(__dirname, '/chaindb/')
-
 const wallets = {
   'local': PlasmaCore.providers.WalletProviders.LocalWalletProvider,
   'remote': PlasmaCore.providers.WalletProviders.Web3WalletProvider
@@ -34,7 +30,6 @@ const options = {
   finalityDepth: program.finality,
   port: program.port,
   ethereumEndpoint: program.ethereum,
-  dbPath: dbPath,
   debug: `service:*,${debug}`,
   contractProvider: PlasmaCore.providers.ContractProviders.ContractProvider,
   walletProvider: wallets[program.wallet],

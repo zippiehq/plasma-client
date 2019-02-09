@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const Plasma = require('plasma-js-lib')
+const os = require('os')
 const path = require('path')
 const colors = require('colors')
 const program = require('commander')
@@ -14,7 +15,15 @@ program
   .option('-p, --port <port>', 'Port the node is running on. Defaults to 9898.', '9898')
 
 const client = () => new Plasma(`http://${program.hostname}:${program.port}`)
-const dbPath = path.join(__dirname, '/chaindb/')
+
+// TODO: Get this from config file once we allow changing data dirs.
+const BASE_DB_PATHS = {
+  'linux': `${os.homedir()}/.local/share/io.plasma.group/`,
+  'darwin': `${os.homedir()}/Library/Application Support/io.plasma.group/`,
+  'win32': '%APPDATA%\\io.plasma.group\\'
+}
+const BASE_DB_PATH = BASE_DB_PATHS[os.platform()]
+const dbPath = path.join(BASE_DB_PATH, 'chain')
 
 /**
  * Converts an account index into an address.
