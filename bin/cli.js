@@ -43,6 +43,13 @@ program
   .description('lists all available accounts')
   .action(async () => {
     const accounts = await client().getAccounts()
+
+    if (accounts.length === 0) {
+      console.log(`You haven't created any accounts yet.`)
+      console.log(`Create one now by running:`)
+      console.log(colors.green(`plasma-cli createaccounts`))
+    }
+
     accounts.forEach((account, i) => {
       const maxDigits = (accounts.length - 1).toString().length
       const accountNumber = i.toString().padStart(maxDigits, '0')
@@ -55,7 +62,11 @@ program
   .description('returns the address of the account with the given index')
   .action(async (index) => {
     const account = await parseAccount(index)
-    console.log(account)
+    if (account) {
+      console.log(account)
+    } else {
+      console.log(`That account doesn't exist.`)
+    }
   })
 
 program
