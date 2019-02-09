@@ -1,10 +1,10 @@
 {
   "name": "plasma-client",
-  "version": "0.0.4-beta.21",
+  "version": "0.0.4-beta.22",
   "description": "PG Plasma full node",
   "bin": {
-    "plasma-client": "node.js",
-    "plasma-cli": "cli.js"
+    "plasma-client": "bin/node.js",
+    "plasma-cli": "bin/cli.js"
   },
   "main": "index.js",
   "scripts": {

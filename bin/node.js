@@ -4,12 +4,13 @@ const path = require('path')
 const program = require('commander')
 const colors = require('colors')
 const PlasmaCore = require('plasma-core')
-const PlasmaNode = require('./index')
+const PlasmaNode = require('../index')
 const latestVersion = require('latest-version')
-const pkg = require('./package.json')
+const pkg = require('../package.json')
 
 program
   .version('0.0.1')
+  .option('-r, --registry <address>', 'Plasma chain registry address', '0x18d8BD44a01fb8D5f295a2B3Ab15789F26385df7')
   .option('-c, --chain <name>', 'Name of the plasma chain to connect to.', 'PG-beta.10')
   .option('-e, --ethereum <endpoint>', 'Endpoint of the Ethereum node to connect to.', 'https://rinkeby.infura.io/v3/fce31f1fb2d54caa9b31ed7d28437fa5')
   .option('-h, --hostname <hostname>', 'Host to run the client on.', 'localhost')
@@ -19,6 +20,7 @@ program
   .option('-f, --finality <blocks>', 'Number of blocks to wait before considering events final.', parseInt, 0)
   .parse(process.argv)
 
+// TODO: Fix this path.
 const dbPath = path.join(__dirname, '/chaindb/')
 
 const wallets = {
@@ -38,7 +40,8 @@ const options = {
   walletProvider: wallets[program.wallet],
   operatorProvider: PlasmaCore.providers.OperatorProviders.HttpOperatorProvider,
   dbProvider: PlasmaCore.providers.DBProviders.LevelDBProvider,
-  plasmaChainName: program.chain
+  plasmaChainName: program.chain,
+  registryAddress: program.registry
 }
 
 const node = new PlasmaNode(options)
@@ -51,9 +54,12 @@ const getSectionTitle = (title) => {
 (async () => {
   const latest = await latestVersion(pkg.name)
   if (pkg.version !== latest) {
-    console.log(colors.red('ERROR: Your plasma-client is out of date.'))
+    console.log(colors.red('ERROR: ') + 'Your plasma-client is out of date.')
     console.log('Please update to the latest version by running:')
-    console.log('npm install -g --upgrade plasma-client')
+    console.log(colors.green('npm install -g --upgrade plasma-client'))
+    console.log()
+    console.log(`You might also want to reset your database (this won't delete your accounts):`)
+    console.log(colors.green('plasma-cli killdb'))
     return
   }
 
