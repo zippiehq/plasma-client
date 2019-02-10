@@ -2,10 +2,12 @@ const PlasmaCore = require('plasma-core')
 const Plasma = require('plasma-js-lib')
 const LevelDBProvider = require('./services/level-db-provider')
 const RPCServerService = require('./services/rpc-server-service')
+const dbPaths = require('../src/db-paths')
 
 const defaultOptions = {
   port: '9898',
-  dbProvider: LevelDBProvider
+  dbProvider: LevelDBProvider,
+  dbPath: dbPaths.CHAIN_DB_PATH
 }
 
 /**
