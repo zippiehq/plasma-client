@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
 const Plasma = require('plasma-js-lib')
-const os = require('os')
-const path = require('path')
 const colors = require('colors')
 const program = require('commander')
 const inquirer = require('inquirer')
 const rimraf = require('rimraf')
 const web3Utils = require('web3-utils')
+const dbPaths = require('../src/db-paths')
 
 program
   .version('0.0.1')
@@ -15,15 +14,6 @@ program
   .option('-p, --port <port>', 'Port the node is running on. Defaults to 9898.', '9898')
 
 const client = () => new Plasma(`http://${program.hostname}:${program.port}`)
-
-// TODO: Get this from config file once we allow changing data dirs.
-const BASE_DB_PATHS = {
-  'linux': `${os.homedir()}/.local/share/io.plasma.group/`,
-  'darwin': `${os.homedir()}/Library/Application Support/io.plasma.group/`,
-  'win32': '%APPDATA%\\io.plasma.group\\'
-}
-const BASE_DB_PATH = BASE_DB_PATHS[os.platform()]
-const dbPath = path.join(BASE_DB_PATH, 'chain')
 
 /**
  * Converts an account index into an address.
@@ -47,7 +37,7 @@ program
     if (accounts.length === 0) {
       console.log(`You haven't created any accounts yet.`)
       console.log(`Create one now by running:`)
-      console.log(colors.green(`plasma-cli createaccounts`))
+      console.log(colors.green(`plasma-cli createaccount`))
     }
 
     accounts.forEach((account, i) => {
@@ -188,7 +178,7 @@ program
     ])
     if (response.confirm) {
       console.log('Deleting local chain data...')
-      rimraf.sync(dbPath)
+      rimraf.sync(dbPaths.CHAIN_DB_PATH)
       console.log('Local chain data deleted.')
     }
   })

@@ -6,6 +6,7 @@ const PlasmaCore = require('plasma-core')
 const PlasmaNode = require('../index')
 const latestVersion = require('latest-version')
 const pkg = require('../package.json')
+const dbPaths = require('../src/db-paths')
 
 program
   .version('0.0.1')
@@ -31,10 +32,10 @@ const options = {
   port: program.port,
   ethereumEndpoint: program.ethereum,
   debug: `service:*,${debug}`,
+  dbPath: dbPaths.CHAIN_DB_PATH,
   contractProvider: PlasmaCore.providers.ContractProviders.ContractProvider,
   walletProvider: wallets[program.wallet],
   operatorProvider: PlasmaCore.providers.OperatorProviders.HttpOperatorProvider,
-  dbProvider: PlasmaCore.providers.DBProviders.LevelDBProvider,
   plasmaChainName: program.chain,
   registryAddress: program.registry
 }
