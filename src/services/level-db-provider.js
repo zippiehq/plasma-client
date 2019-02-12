@@ -1,7 +1,6 @@
 const fs = require('fs')
 const levelup = require('levelup')
 const leveldown = require('leveldown')
-const AsyncLock = require('async-lock')
 const core = require('plasma-core')
 const BaseDBProvider = core.providers.base.BaseDBProvider
 
@@ -12,7 +11,6 @@ class LevelDBProvider extends BaseDBProvider {
   constructor (options) {
     super(options)
 
-    this.lock = new AsyncLock()
     this.dbPath = options.dbPath
     if (!fs.existsSync(this.dbPath)) {
       fs.mkdirSync(this.dbPath, { recursive: true })
@@ -43,15 +41,11 @@ class LevelDBProvider extends BaseDBProvider {
       value = JSON.stringify(value)
     }
 
-    return this.lock.acquire(key, () => {
-      return this.db.put(key, value)
-    })
+    return this.db.put(key, value)
   }
 
   async delete (key) {
-    return this.lock.acquire(key, () => {
-      return this.db.del(key)
-    })
+    return this.db.del(key)
   }
 
   async exists (key) {
@@ -83,8 +77,15 @@ class LevelDBProvider extends BaseDBProvider {
     return result.key
   }
 
-  get batch () {
-    return this.db.batch
+  async bulkPut (objects) {
+    const ops = objects.map((object) => {
+      return {
+        type: 'put',
+        key: object.key,
+        value: object.value
+      }
+    })
+    await this.db.batch(ops)
   }
 
   /**
