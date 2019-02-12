@@ -67,12 +67,40 @@ class LevelDBProvider extends BaseDBProvider {
     }
   }
 
-  get iterator () {
-    return this.db.iterator
+  async findNextKey (key) {
+    const prefix = key.split(':')[0]
+    const it = this.db.iterator({
+      gte: key,
+      keyAsBuffer: false,
+      valueAsBuffer: false
+    })
+
+    let result = await this._itNext(it)
+    while (!result.key.startsWith(prefix)) {
+      result = await this._itNext(it)
+    }
+
+    return result.key
   }
 
   get batch () {
     return this.db.batch
+  }
+
+  /**
+   * Promsified version of `iterator.next`.
+   * @param {*} it LevelDB iterator.
+   * @return {*} The key and value returned by the iterator.
+   */
+  async _itNext (it) {
+    return new Promise((resolve, reject) => {
+      it.next((err, key, value) => {
+        if (err) {
+          reject(err)
+        }
+        resolve({ key, value })
+      })
+    })
   }
 }
 
