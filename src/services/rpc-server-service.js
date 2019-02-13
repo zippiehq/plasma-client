@@ -17,7 +17,7 @@ class RPCServerService extends BaseService {
     this.expressApp.use(bodyParser.json())
 
     this.expressApp.post('/', async (req, res) => {
-      const response = await this.app.services.jsonrpc.handle(req.body)
+      const response = await this.app.services.jsonrpc.handleRawRequest(req.body)
       res.json(response)
     })
   }
