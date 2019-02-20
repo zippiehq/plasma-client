@@ -46,7 +46,7 @@ const getSectionTitle = (title) => {
 }
 
 (async () => {
-  const latest = await latestVersion(pkg.name)
+/*  const latest = await latestVersion(pkg.name)
   if (pkg.version !== latest) {
     console.log(colors.red('ERROR: ') + 'Your plasma-client is out of date.')
     console.log('Please update to the latest version by running:')
@@ -56,7 +56,7 @@ const getSectionTitle = (title) => {
     console.log(colors.green('plasma-cli killdb'))
     return
   }
-
+*/
   await node.start()
   console.log('Plasma Client v' + pkg.version + ' 🎉 🎉 🎉 ')
 
